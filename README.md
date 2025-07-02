@@ -2,7 +2,7 @@
 
 ## ✨ Fix Code, Understand Concepts, Troubleshoot Software ✨
 
-![Code Correct Screenshot Placeholder](https://placehold.co/800x400/282c34/E0E0E0?text=Code+Correct+App+Screenshot)
+![Screenshot 2025-07-02 120412](https://github.com/user-attachments/assets/aff8ab6d-3533-4bcc-b44c-7da5815df9fd)
 
 ---
 
@@ -68,10 +68,9 @@ Follow these steps to set up and run Code Correct on your local machine.
 First, clone this repository to your local machine:
 
 ```bash
-git clone [https://github.com/your-username/code_correct.git](https://github.com/your-username/code_correct.git)
+git clone [https://github.com/bigm-o/code_correct.git](https://github.com/bigm-o/code_correct.git)
 cd code_correct/src
 ```
-*(Replace `https://github.com/your-username/code_correct.git` with your actual repository URL)*
 
 ### 2. Create a Virtual Environment (Recommended) 🐍📦
 
@@ -104,10 +103,8 @@ Your `requirements.txt` should be clean and minimal, like this:
 ```
 streamlit
 google-generativeai
-firebase-admin
-google-cloud-firestore
+Pillow
 ```
-*(Ensure your `requirements.txt` matches this clean version to avoid deployment issues.)*
 
 ### 4. Set Up Your Gemini API Key 🔑🔒
 
@@ -119,7 +116,6 @@ Create a `.streamlit` folder in the root of your project (the `code_correct` dir
 # .streamlit/secrets.toml
 GEMINI_API_KEY="YOUR_GEMINI_API_KEY_HERE"
 ```
-*(Replace `YOUR_GEMINI_API_KEY_HERE` with your actual API key.)*
 
 Alternatively, you can set it as an environment variable: `GEMINI_API_KEY="YOUR_GEMINI_API_KEY_HERE"`.
 
@@ -148,13 +144,14 @@ You are "Code Correct," an expert AI for all things programming, coding, debuggi
 4.  **Tone & Formatting:** Maintain an **expert, helpful, and educational** tone. Use **code blocks** for code, **bolding** for keywords, and **bullet points/numbered lists** for steps to ensure maximum readability and clarity.
 ```
 
-### 6. Add Your Background Image 🖼️🎨
+### 6. Background Images 🖼️🎨
 
-Place your desired background image file (e.g., `background.jpg`, `bg_image.png`) directly into the `src` directory alongside `app.py`. Then, open `app.py` and update this line in the CSS:
+In the image folder, the background images (i.e., `image(image_number).jpg`) are fed into the `app.py` with base64 to encode the image. Randint is used to cycle throught the images, so that it can display a different image each time the app is run:
 
 ```python
-# In app.py, within the <style> tag:
-background-image: url("your_background_image.jpg"); # Replace with your image filename
+image_number = random.randint(1, 6)
+BACKGROUND_IMAGE_PATH = f"images/image{image_number}.jpg"
+encoded_background_image = get_base64_image(BACKGROUND_IMAGE_PATH)
 ```
 
 ### 7. Run the Application ▶️🚀
@@ -175,10 +172,16 @@ Your browser should automatically open to the Code Correct AI Chatbot!
 code_correct/
 ├── .streamlit/
 │   └── secrets.toml         # Securely stores your Gemini API Key
+├── images/
+│   ├── image1              
+│   ├── image2
+│   ├── image3           
+│   ├── image4
+│   ├── image5
+│   ├── image6
 ├── src/
 │   ├── app.py               # The main Streamlit application
 │   ├── prompt.txt           # Contains the AI's core instructions/prompt
-│   └── your_background_image.jpg # Your chosen background image
 ├── requirements.txt         # Lists Python dependencies
 └── README.md                # This file
 ```

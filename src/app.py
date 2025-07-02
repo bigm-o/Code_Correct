@@ -3,28 +3,13 @@ import google.generativeai as genai
 import os
 from PIL import Image
 import io
+import base64 
+import random
 
 # --- Gemini API Configuration ---
 gemini_api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
 st.set_page_config(page_title="🤖 Code Correct AI Chatbot", layout="centered")
-
-page_bg_img = f"""
-<style>
-.st-emotion-cache-bm2z3a {{
-    background-image: url("image.jpg"):
-    background-size: cover;
-}}
-.st-emotion-cache-h4xjwg {{
-    background-color: gba(0, 0, 0, 0);
-}}
-.st-emotion-cache-qcpnpn {{  
-    background-color: gba(0, 0, 0, 0.6);
-}}
-</style>
-"""
-
-st.markdown(page_bg_img, unsafe_allow_html=True)
 
 st.markdown(
     """
@@ -33,10 +18,253 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# --- Image Encoding Function ---
+def get_base64_image(image_path):
+    try:
+        # Determine MIME type based on file extension
+        # You might need to adjust this if you use other image types
+        if image_path.lower().endswith(('.png')):
+            mime_type = "image/png"
+        elif image_path.lower().endswith(('.jpg', '.jpeg')):
+            mime_type = "image/jpeg"
+        elif image_path.lower().endswith(('.gif')):
+            mime_type = "image/gif"
+        else:
+            mime_type = "image/jpeg"
+            st.warning(f"Unknown image type for {image_path}. Defaulting to image/jpeg.")
+
+        with open(image_path, "rb") as img_file:
+            encoded_string = base64.b64encode(img_file.read()).decode()
+        return f"data:{mime_type};base64,{encoded_string}"
+    except FileNotFoundError:
+        st.error(f"Background image not found at: {image_path}. Please ensure the file exists.")
+        return ""
+    except Exception as e:
+        st.error(f"Error encoding background image: {e}")
+        return ""
+
+# --- Specify your local background image path ---
+image_number = random.randint(1, 6)
+BACKGROUND_IMAGE_PATH = f"images/image{image_number}.jpg"
+encoded_background_image = get_base64_image(BACKGROUND_IMAGE_PATH)
+
+# --- Custom CSS for Styling ---
+st.markdown(f"""
+<style>
+    /* Google Fonts Import - MUST be at the top of the <style> block */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+    /* Overall App Background and Font */
+    html, body {{
+        font-family: 'Poppins', sans-serif;
+        background-color: #f0f2f6; /* Fallback background color */
+    }}
+
+    /* Target Streamlit's main container for background image */
+    [data-testid="stApp"] {{
+        background-image: url("{encoded_background_image}"); /* Using Base64 encoded image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: #e0e0e0; 
+    }}
+
+    [data-testid="stApp"] {{
+        background-image: url("{encoded_background_image}"); /* Using Base64 encoded image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: #e0e0e0; 
+    }}
+
+    .stAppViewContainer {{
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.82);
+    }}
+
+
+    /* NEW: Target the chat input's outer container to make its background transparent */
+    [data-testid="stBottom"] {{
+        background-color: transparent !important;
+    }}
+
+    [data-testid="stMarkdownContainer"] {{
+        color: white;
+    }}
+
+    [data-testid="stChatMessageContent"] {{
+        padding: 1.5rem
+    }}
+
+    [data-testid="stMainBlockContainer"] {{
+        padding: 4rem 1rem 1rem;
+    }}
+
+    [data-testid="stChatMessageAvatarUser"] svg {{
+        color: rgb(14, 17, 23);
+    }}
+
+    [data-testid="stChatMessageAvatarAssistant"] svg {{
+        color: rgb(14, 17, 23);
+    }}
+
+    [data-testid="stCaptionContainer"] {{
+        color: rgb(250, 250, 250);
+    }}
+
+    [data-testid="stChatInputDeleteBtn"] {{
+        color: #e0e0e0;
+    }}
+
+    [data-testid="stElementToolbarButtonContainer"] {{
+        background-color: rgb(19, 23, 32);
+    }}
+
+    [data-testid="stElementToolbarButtonIcon"] {{
+        color: white;
+    }}
+
+    .st-emotion-cache-yg4ae2 {{
+        color: rgb(250, 250, 250, 0.6);
+    }}
+
+    .st-emotion-cache-hzygls {{
+        background-color: transparent !important;
+    }}
+
+    .st-emotion-cache-128upt6 {{
+        background-color: transparent !important;
+    }}
+
+    .st-emotion-cache-uzemrq {{
+        background: rgb(26, 28, 36);
+        color: rgb(61, 213, 109);
+    }}
+
+    .st-emotion-cache-14drx84 {{
+        background: rgb(26, 28, 36);
+        color: white;
+    }}
+
+    .st-emotion-cache-1o07ofn {{
+        color: rgba(250, 250, 250, 0.6);
+    }}
+
+    .stChatMessage {{
+        background-color: rgba(38, 39, 48, 0.5);
+    }}
+
+    .stChatInputFileName {{
+        color: white;
+    }}
+
+    .st-emotion-cache-1i3z4bt {{
+        color: white;
+    }}
+
+    /* Adjust main content block padding and background for readability */
+    .main .block-container {{
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1200px; /* Limit width for better readability */
+    }}
+
+    /* Chat message styling */
+    .st-chat-message-container {{
+        background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white for chat messages */
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }}
+
+    .st-chat-message-container.st-chat-message-user {{
+        background-color: rgba(230, 247, 255, 0.95); /* Light blue for user messages */
+        border-left: 5px solid #1890ff;
+    }}
+
+    .st-chat-message-container.st-chat-message-assistant {{
+        background-color: rgba(240, 240, 240, 0.95); /* Light gray for assistant messages */
+        border-right: 5px solid #4CAF50;
+    }}
+
+    /* Input field styling (st.text_input, st.text_area, st.chat_input) */
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea,
+    .st-emotion-cache-1c7y2vl > div > input {{ /* Specific selector for st.chat_input */
+        border-radius: 8px;
+        border: 1px solid #007bff; /* Blue border */
+        padding: 12px;
+        font-size: 16px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        background-color: #ffffff; /* White background for inputs */
+        color: #333; /* Dark text color */
+    }}
+
+    /* Button styling */
+    div.stButton > button {{
+        background-color: #007bff; /* Blue */
+        color: white;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }}
+    div.stButton > button:hover {{
+        background-color: #0056b3; /* Darker blue on hover */
+        transform: translateY(-2px);
+    }}
+
+    /* Titles and Headers */
+    h1, h2, h3, h4, h5, h6 {{
+        color: #2c3e50; /* Darker text for headers */
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }}
+
+    /* Code blocks within chat messages */
+    .st-chat-message-container pre {{
+        background-color: #2d2d2d; /* Dark background for code */
+        color: #f8f8f2; /* Light text for code */
+        padding: 15px;
+        border-radius: 8px;
+        overflow-x: auto; /* Allow horizontal scrolling for long code lines */
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.9rem;
+        white-space: pre-wrap; /* Ensure code wraps */
+        word-break: break-all; /* Break long words if necessary */
+    }}
+
+    /* Spinner color */
+    .stSpinner > div {{
+        color: #007bff !important; /* Blue spinner */
+    }}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
 st.markdown(
     """
     <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;">
-        <i class="fas fa-robot" style="color: #FFD700;"></i> CODE CORRECT 
+        <i class="fas fa-robot" style="color: #ffffff;"></i>
+    </h1>
+    <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;">
+        CODE CORRECT 
     </h1>
     """,
     unsafe_allow_html=True
@@ -45,11 +273,8 @@ st.markdown(
 st.markdown(
     """
     <div style="text-align: center; font-size: 1.5rem;">
-        Your dedicated AI assistant for all things code! 
-        <br>
-        <br><br>
-        <br><br>
-        <br>
+        Your dedicated AI assistant for all things code
+        <br><br><br>
         I'm here fix bugs, troubleshoot software issues and help you write cleaner more efficient code to keep your PC running smoothly.
         
     </div>
@@ -72,7 +297,7 @@ except Exception as e:
 
 # --- Read the prompt from prompt.txt ---
 try:
-    with open("prompt.txt", "r") as f:
+    with open("src/prompt.txt", "r") as f:
         system_instruction_prompt = f.read().strip()
 except FileNotFoundError:
     st.error("Error: 'prompt.txt' not found. Please make sure the prompt file is in the same directory as 'app.py'.")
