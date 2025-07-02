@@ -272,6 +272,20 @@ st.markdown(f"""
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); 
     }}
 
+    /* Hide element on small mobile devices */
+    @media (max-width: 767px) {{
+        .hide-on-mobile {{
+            display: none !important;
+        }}
+    }}
+
+    /* Example: Show element only on mobile */
+    @media (min-width: 768px) {{
+        .show-only-mobile {{
+            display: none !important;
+        }}
+    }}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -301,8 +315,9 @@ st.markdown(
             </a>
         </div>
         <br>
+        <span class="hide-on-mobile">
         I'm to here fix bugs, troubleshoot software issues and help you write cleaner, more efficient codes to keep your PC and projects running smoothly.
-        
+        </span>
     </div>
     """,
     unsafe_allow_html=True

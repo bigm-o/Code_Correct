@@ -14,9 +14,14 @@ Say goodbye to endless Stack Overflow searches and frustrating debugging session
 #### 🔃 Multiple background image functionality
 The background image dynamically changes each time the user reloads the app, to give an interactive feel to it:
 
-![Screenshot 2025-07-02 162910](https://github.com/user-attachments/assets/c95efe3d-e0f3-4de9-a11d-cc9309b4a8f3)
+![Screenshot 2025-07-02 162910 (1)](https://github.com/user-attachments/assets/0eeba5c7-d90b-4e85-b6e9-c5b5dd488f4e)
 
-![Screenshot 2025-07-02 120412](https://github.com/user-attachments/assets/580b696a-c864-4f97-be9e-c8e58e4add37)
+![Screenshot 2025-07-02 120412 (1)](https://github.com/user-attachments/assets/ed6c6386-6b81-4c3b-b4c2-d368a3e1053e)
+
+### 📱 Extra responsiveness to hide unnecesary elements when viewed on mobile. (hide-on-mobile)  
+
+![Screenshot 2025-07-02 174112 (1)](https://github.com/user-attachments/assets/9b83d15a-e79a-4178-921e-1f098463c640)
+
 
 ---
 
