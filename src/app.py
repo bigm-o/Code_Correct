@@ -301,7 +301,7 @@ st.markdown(
             </a>
         </div>
         <br>
-        I'm here fix bugs, troubleshoot software issues and help you write cleaner more efficient code to keep your PC running smoothly.
+        I'm to here fix bugs, troubleshoot software issues and help you write cleaner, more efficient code to keep your PC running smoothly.
         
     </div>
     """,
