@@ -226,7 +226,6 @@ st.markdown(f"""
         transform: translateY(-2px);
     }}
 
-    /* Titles and Headers */
     h1, h2, h3, h4, h5, h6 {{
         color: #2c3e50; /* Darker text for headers */
         font-weight: 600;
@@ -234,7 +233,6 @@ st.markdown(f"""
         margin-bottom: 1.5rem;
     }}
 
-    /* Code blocks within chat messages */
     .st-chat-message-container pre {{
         background-color: #2d2d2d; /* Dark background for code */
         color: #f8f8f2; /* Light text for code */
@@ -246,10 +244,32 @@ st.markdown(f"""
         white-space: pre-wrap; /* Ensure code wraps */
         word-break: break-all; /* Break long words if necessary */
     }}
-
-    /* Spinner color */
+    
     .stSpinner > div {{
         color: #007bff !important; /* Blue spinner */
+    }}
+
+    .simple-repo-button {{
+        background-color: #282c34;
+        color: white;
+        border: 2px solid #61dafb;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }}
+
+   .simple-repo-button:hover {{
+        background-color: #61dafb !important; 
+        color: #282c34 !important; 
+        transform: translateY(-2px); 
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); 
     }}
 
 </style>
@@ -274,7 +294,13 @@ st.markdown(
     """
     <div style="text-align: center; font-size: 1.5rem;">
         Your dedicated AI assistant for all things code
-        <br><br><br>
+        <br>
+        <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+            <a href="https://github.com/bigm-o/Code_Correct.git" target="_blank" class="simple-repo-button">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+        </div>
+        <br>
         I'm here fix bugs, troubleshoot software issues and help you write cleaner more efficient code to keep your PC running smoothly.
         
     </div>

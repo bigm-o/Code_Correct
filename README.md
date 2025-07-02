@@ -2,15 +2,21 @@
 
 ## ✨ Fix Code, Understand Concepts, Troubleshoot Software ✨
 
-![Screenshot 2025-07-02 120412](https://github.com/user-attachments/assets/aff8ab6d-3533-4bcc-b44c-7da5815df9fd)
-
----
-
 ### Introduction
 
 **Code Correct** is an innovative AI-powered chatbot designed to be your ultimate companion in the world of programming and software development. Built with Streamlit and powered by Google's Gemini API, this application provides instant, intelligent assistance for debugging code, answering complex programming questions, and even troubleshooting PC software issues.
 
 Say goodbye to endless Stack Overflow searches and frustrating debugging sessions. Code Correct is here to streamline your workflow and enhance your understanding, helping you write cleaner, more efficient code and keep your development environment running smoothly.
+
+---
+
+### 👨‍💻 App UI
+#### 🔃 Multiple background image functionality
+The background image dynamically changes each time the user reloads the app, to give an interactive feel to it:
+
+![Screenshot 2025-07-02 162910](https://github.com/user-attachments/assets/c95efe3d-e0f3-4de9-a11d-cc9309b4a8f3)
+
+![Screenshot 2025-07-02 120412](https://github.com/user-attachments/assets/580b696a-c864-4f97-be9e-c8e58e4add37)
 
 ---
 
