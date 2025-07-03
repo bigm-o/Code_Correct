@@ -279,6 +279,13 @@ st.markdown(f"""
         }}
     }}
 
+    /* Hide element on large devices */
+    @media (min-width: 767px) {{
+        .hide-on-large {{
+            display: none !important;
+        }}
+    }}
+
     /* Example: Show element only on mobile */
     @media (min-width: 768px) {{
         .show-only-mobile {{
@@ -298,7 +305,10 @@ st.markdown(
         <i class="fas fa-robot" style="color: #ffffff;"></i>
     </div>
     <br>
-    <div style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 3rem;">
+    <div class="hide-on-mobile" style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 3rem;">
+        <strong>CODE CORRECT</strong>
+    </div>
+    <div class="hide-on-large" style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 1.8rem;">
         <strong>CODE CORRECT</strong>
     </div>
     <br>
@@ -309,7 +319,8 @@ st.markdown(
 st.markdown(
     """
     <div style="text-align: center; font-size: 1.5rem;">
-        Your dedicated AI assistant for all things code
+        <span class="hide-on-mobile">Your dedicated AI assistant for all things code</span>
+        <span class="hide-on-large" style="font-size: 1rem;">Your dedicated AI assistant for all things code</span>
         <br>
         <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
             <a href="https://github.com/bigm-o/Code_Correct.git" target="_blank" class="simple-repo-button">
