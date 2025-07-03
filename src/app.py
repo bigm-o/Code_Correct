@@ -294,12 +294,14 @@ st.markdown(f"""
 
 st.markdown(
     """
-    <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;">
+    <div style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 3rem;">
         <i class="fas fa-robot" style="color: #ffffff;"></i>
-    </h1>
-    <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;">
-        CODE CORRECT 
-    </h1>
+    </div>
+    <br>
+    <div style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 3rem;">
+        <strong>CODE CORRECT</strong>
+    </div>
+    <br>
     """,
     unsafe_allow_html=True
 )
