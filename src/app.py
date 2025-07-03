@@ -82,7 +82,7 @@ st.markdown(f"""
     .stAppViewContainer {{
         position: fixed;
         inset: 0;
-        background-color: rgba(0, 0, 0, 0.82);
+        background-color: rgba(0, 0, 0, 0.9);
     }}
 
 
