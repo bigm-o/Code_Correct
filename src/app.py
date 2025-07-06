@@ -301,8 +301,8 @@ st.markdown(f"""
 
 st.markdown(
     """
-    <div style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 3rem;">
-        <i class="fas fa-robot" style="color: #ffffff;"></i>
+    <div style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 4.5rem;">
+        <i class="fa-solid fa-infinity"></i>
     </div>
     <br>
     <div class="hide-on-mobile" style="display: flex; align-items: center; justify-content: center; text-align: center; font-size: 3rem;">
