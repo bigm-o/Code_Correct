@@ -70,15 +70,6 @@ st.markdown(f"""
         color: #e0e0e0; 
     }}
 
-    [data-testid="stApp"] {{
-        background-image: url("{encoded_background_image}"); /* Using Base64 encoded image */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        color: #e0e0e0; 
-    }}
-
     .stAppViewContainer {{
         position: fixed;
         inset: 0;
